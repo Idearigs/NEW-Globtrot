@@ -1,0 +1,31 @@
+# Deploy to Client VPS (Globbjan)
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH using Password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.VPS_HOST }}         # 66.29.141.129
+          username: ${{ secrets.VPS_USER }}      # globbjan
+          password: ${{ secrets.VPS_PASSWORD }}  # your password
+          port: 21098
+          script: |
+            echo "✅ Connected to server. Navigating to project directory..."
+            cd /home/globbjan/public_html
+            echo "📦 Pulling latest changes from GitHub..."
+            git reset --hard HEAD
+            git clean -fd
+            git pull origin main
+            echo "🚀 Deployment successful!"
