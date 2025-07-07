@@ -164,57 +164,51 @@
                 </div>
             </div>
         </div>
-        <div class="space">
+        <div class="bg-top-center overflow-hidden" data-bg-src="assets/images/SIGIRIYA-HIGH.avif">
             <div class="container">
-                <div class="title-area text-center">
-                    <span class="sub-title">Get In Touch</span>
-                    <h2 class="sec-title">Our Contact Information</h2>
-                </div>
-             
-            </div>
-        </div>
-        <div class="space-extra2-top space-extra2-bottom" data-bg-src="assets/images/Yala2.webp"  id="contactfrm">
-            <div class="container">
-                <div class="row flex-row-reverse justify-content-center align-items-center">
-                    <div class="col-lg-6">
-                        <div class="video-box1">
-                            <a href="https://www.youtube.com/watch?v=8g9ccCkT-u0" class="play-btn style2 popup-video"><i class="fa-sharp fa-solid fa-play"></i></a>
+                <div class="row gy-4 justify-content-between align-items-center">
+                    <div class="col-lg-5">
+                        <div class="pt-80 p-lg-0">
+                            <div class="title-area pe-xl-5">
+                                <span class="sub-title text-white">Get in touch</span>
+                                <h2 class="sec-title text-white">We’re here to help! </h2>
+                                <p class="contact-text text-white">Reach out and say hello, our team is ready to assist you !</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div>
+                    <div class="col-lg-6" style="margin-bottom:60px;">
+                        <div class="contact-form-area">
                             <form
-                                    style="border-radius: 3px;"
-                                    class="contact-form style2 ajax-contact"
-                                    id="contactForm"
-                                    onsubmit="handleForm(event)">
+                                    class="contact-form2 ajax-contact"
+                                    id="homeContactForm"
+                                    onsubmit="handleHomeForm(event)">
                                 <!-- Web3Forms API Key -->
                                 <input type="hidden" name="access_key" value="0ac1f04d-4bd2-410e-90f8-5a331f465e51">
                                 <!-- Form Name -->
-                                <input type="hidden" name="from_name" value="GlobeTrotContact">
+                                <input type="hidden" name="from_name" value="GlobeTrotHomeContact">
                                 <!-- Subject -->
-                                <input type="hidden" name="subject" value="Globetrotcontact-form-submission !!">
-                                <h3 class="sec-title mb-30 text-capitalize">Book a tour</h3>
+                                <input type="hidden" name="subject" value="Home Page Contact Form Submission">
                                 <div class="row">
                                     <!-- First Name -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
+                                        <input type="text" class="form-control" name="first_name" id="home_first_name" placeholder="First Name" />
                                     </div>
                                     <!-- Last Name -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                        <input type="text" class="form-control" name="last_name" id="home_last_name" placeholder="Last Name" />
                                     </div>
                                     <!-- Email -->
                                     <div class="form-group col-12">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" />
+                                        <input type="email" class="form-control" name="email" id="home_email" placeholder="Your Email" />
                                     </div>
                                     <!-- Country -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="country" id="country" placeholder="Your Country" />
+                                        <input type="text" class="form-control" name="country" id="home_country" placeholder="Your Country" />
                                     </div>
+                                    <!-- Phone Number with Country Code -->
                                     <div class="form-group col-12">
                                         <div class="input-group">
-                                            <select class="form-control" name="country_code" id="country_code" style="max-width: 150px;">
+                                            <select class="form-control" name="country_code" id="home_country_code" style="max-width: 150px;">
                                                 <option value="+1">United States (+1)</option>
                                                 <option value="+44">United Kingdom (+44)</option>
                                                 <option value="+91">India (+91)</option>
@@ -227,40 +221,22 @@
                                                 <option value="+7">Russia (+7)</option>
                                                 <option value="+27">South Africa (+27)</option>
                                                 <option value="+971">United Arab Emirates (+971)</option>
-                                                <option value="+966">Saudi Arabia (+966)</option>
-                                                <option value="+65">Singapore (+65)</option>
-                                                <option value="+60">Malaysia (+60)</option>
-                                                <option value="+66">Thailand (+66)</option>
-                                                <option value="+39">Italy (+39)</option>
-                                                <option value="+34">Spain (+34)</option>
-                                                <option value="+31">Netherlands (+31)</option>
-                                                <option value="+46">Sweden (+46)</option>
-                                                <option value="+47">Norway (+47)</option>
-                                                <option value="+45">Denmark (+45)</option>
-                                                <option value="+41">Switzerland (+41)</option>
-                                                <option value="+32">Belgium (+32)</option>
-                                                <option value="+43">Austria (+43)</option>
-                                                <option value="+64">New Zealand (+64)</option>
-                                                <option value="+55">Brazil (+55)</option>
-                                                <option value="+52">Mexico (+52)</option>
-                                                <option value="+82">South Korea (+82)</option>
                                             </select>
-                                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone Number (without country code)" pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                            <input type="tel" class="form-control" name="phone" id="home_phone" placeholder="Phone Number" pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                                         </div>
                                     </div>
                                     <!-- Message -->
                                     <div class="form-group col-12">
-                                        <textarea name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Your Message"></textarea>
+                                        <textarea name="message" id="home_message" cols="30" rows="3" class="form-control" placeholder="Your Message"></textarea>
                                     </div>
                                     <!-- Honeypot field - hidden from humans but visible to bots -->
                                     <div class="form-group" style="display:none !important">
                                         <input type="text" name="website" id="website" autocomplete="off" tabindex="-1">
                                     </div>
-
                                     <!-- Submit Button -->
                                     <div class="form-btn col-12 mt-24">
                                         <button type="submit" class="th-btn style3">
-                                            Send Message <img src="https://html.themeholy.com/tourm/demo/assets/img/icon/plane.svg" alt="" />
+                                            Send Message <i class="fas fa-paper-plane ms-2"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -268,18 +244,17 @@
                             </form>
 
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            
                             <script>
-                                function handleForm(event) {
+                                function handleHomeForm(event) {
                                     event.preventDefault(); // Prevent the default form submission
                                     
                                     // Disable submit button to prevent multiple submissions
-                                    const submitButton = document.querySelector('#contactForm button[type="submit"]');
+                                    const submitButton = document.querySelector('#homeContactForm button[type="submit"]');
                                     const originalButtonText = submitButton.innerHTML;
                                     submitButton.disabled = true;
                                     submitButton.innerHTML = 'Sending...';
 
-                                    const form = document.getElementById('contactForm');
+                                    const form = document.getElementById('homeContactForm');
                                     const formData = new FormData(form);
 
                                     // Basic client-side validation
@@ -383,8 +358,11 @@
                                     });
                                 }
                             </script>
+
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

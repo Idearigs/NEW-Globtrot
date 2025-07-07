@@ -695,9 +695,7 @@
         </div>
       
         
-        <div class="elements-sec bg-white overflow-hidden">
-            <div class="container-fluid"><div class="tags-container relative"></div></div>
-        </div>
+     
         <div class="bg-top-center overflow-hidden" data-bg-src="assets/images/SIGIRIYA-HIGH.avif">
             <div class="container">
                 <div class="row gy-4 justify-content-between align-items-center">
@@ -713,87 +711,187 @@
                     <div class="col-lg-6" style="margin-bottom:60px;">
                         <div class="contact-form-area">
                             <form
-                                    action="home-contact.php"
-                                    method="POST"
                                     class="contact-form2 ajax-contact"
-                                    id="contactForm"
-                                    onsubmit="handleForm(event)">
+                                    id="homeContactForm"
+                                    onsubmit="handleHomeForm(event)">
+                                <!-- Web3Forms API Key -->
+                                <input type="hidden" name="access_key" value="0ac1f04d-4bd2-410e-90f8-5a331f465e51">
+                                <!-- Form Name -->
+                                <input type="hidden" name="from_name" value="GlobeTrotHomeContact">
+                                <!-- Subject -->
+                                <input type="hidden" name="subject" value="Home Page Contact Form Submission">
                                 <div class="row">
                                     <!-- First Name -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" />
+                                        <input type="text" class="form-control" name="first_name" id="home_first_name" placeholder="First Name" />
                                     </div>
                                     <!-- Last Name -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" />
+                                        <input type="text" class="form-control" name="last_name" id="home_last_name" placeholder="Last Name" />
                                     </div>
                                     <!-- Email -->
                                     <div class="form-group col-12">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" />
+                                        <input type="email" class="form-control" name="email" id="home_email" placeholder="Your Email" />
                                     </div>
                                     <!-- Country -->
                                     <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="country" id="country" placeholder="Your Country" />
+                                        <input type="text" class="form-control" name="country" id="home_country" placeholder="Your Country" />
+                                    </div>
+                                    <!-- Phone Number with Country Code -->
+                                    <div class="form-group col-12">
+                                        <div class="input-group">
+                                            <select class="form-control" name="country_code" id="home_country_code" style="max-width: 150px;">
+                                                <option value="+1">United States (+1)</option>
+                                                <option value="+44">United Kingdom (+44)</option>
+                                                <option value="+91">India (+91)</option>
+                                                <option value="+94" selected>Sri Lanka (+94)</option>
+                                                <option value="+61">Australia (+61)</option>
+                                                <option value="+86">China (+86)</option>
+                                                <option value="+33">France (+33)</option>
+                                                <option value="+49">Germany (+49)</option>
+                                                <option value="+81">Japan (+81)</option>
+                                                <option value="+7">Russia (+7)</option>
+                                                <option value="+27">South Africa (+27)</option>
+                                                <option value="+971">United Arab Emirates (+971)</option>
+                                            </select>
+                                            <input type="tel" class="form-control" name="phone" id="home_phone" placeholder="Phone Number" pattern="[0-9]*" inputmode="numeric" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                        </div>
                                     </div>
                                     <!-- Message -->
                                     <div class="form-group col-12">
-                                        <textarea name="message" id="message" cols="30" rows="3" class="form-control" placeholder="Your Message"></textarea>
+                                        <textarea name="message" id="home_message" cols="30" rows="3" class="form-control" placeholder="Your Message"></textarea>
+                                    </div>
+                                    <!-- Honeypot field - hidden from humans but visible to bots -->
+                                    <div class="form-group" style="display:none !important">
+                                        <input type="text" name="website" id="website" autocomplete="off" tabindex="-1">
+                                    </div>
+                                    <!-- Submit Button -->
+                                    <div class="form-btn col-12 mt-24">
+                                        <button type="submit" class="th-btn style3">
+                                            Send Message <i class="fas fa-paper-plane ms-2"></i>
+                                        </button>
                                     </div>
                                 </div>
-                                <p class="form-messages mb-0 mt-3"></p>
+                                <p class="form-messages mb-0 mt-3" style="display: none"></p>
                             </form>
 
                             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                             <script>
-                                function handleForm(event) {
+                                function handleHomeForm(event) {
                                     event.preventDefault(); // Prevent the default form submission
+                                    
+                                    // Disable submit button to prevent multiple submissions
+                                    const submitButton = document.querySelector('#homeContactForm button[type="submit"]');
+                                    const originalButtonText = submitButton.innerHTML;
+                                    submitButton.disabled = true;
+                                    submitButton.innerHTML = 'Sending...';
 
-                                    const form = document.getElementById('contactForm');
+                                    const form = document.getElementById('homeContactForm');
                                     const formData = new FormData(form);
 
-                                    fetch('home-contact.php', {
+                                    // Basic client-side validation
+                                    const firstName = formData.get('first_name');
+                                    const lastName = formData.get('last_name');
+                                    const email = formData.get('email');
+                                    const message = formData.get('message');
+
+                                    if (!firstName || !lastName || !email || !message) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Please fill in all required fields!'
+                                        });
+                                        // Re-enable submit button
+                                        submitButton.disabled = false;
+                                        submitButton.innerHTML = originalButtonText;
+                                        return;
+                                    }
+
+                                    // Email validation
+                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                    if (!emailRegex.test(email)) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Invalid Email',
+                                            text: 'Please enter a valid email address!'
+                                        });
+                                        // Re-enable submit button
+                                        submitButton.disabled = false;
+                                        submitButton.innerHTML = originalButtonText;
+                                        return;
+                                    }
+
+                                    // Validate and combine country code and phone number
+                                    const countryCode = formData.get('country_code');
+                                    const phoneNumber = formData.get('phone');
+                                    
+                                    // Check if phone number contains only digits
+                                    if (phoneNumber && !/^\d+$/.test(phoneNumber)) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Invalid Phone Number',
+                                            text: 'Please enter only numbers in the phone number field.'
+                                        });
+                                        // Re-enable submit button
+                                        submitButton.disabled = false;
+                                        submitButton.innerHTML = originalButtonText;
+                                        return;
+                                    }
+                                    
+                                    if (countryCode && phoneNumber) {
+                                        // Remove the original separate values
+                                        formData.delete('country_code');
+                                        formData.delete('phone');
+                                        // Add the combined value
+                                        formData.append('phone', countryCode + ' ' + phoneNumber);
+                                    }
+                                    
+                                    // Submit the form data to Web3Forms
+                                    fetch('https://api.web3forms.com/submit', {
                                         method: 'POST',
                                         body: formData
                                     })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.status === 'success') {
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: 'Success',
-                                                    text: data.message
-                                                });
-                                                form.reset(); // Clear the form
-                                            } else {
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    title: 'Error',
-                                                    text: data.message
-                                                });
-                                            }
-                                        })
-                                        .catch(error => {
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Re-enable submit button
+                                        submitButton.disabled = false;
+                                        submitButton.innerHTML = originalButtonText;
+                                        
+                                        if (data.success) {
+                                            // Show success message
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Success',
+                                                text: 'Your message has been sent successfully!'
+                                            });
+                                            // Reset the form
+                                            form.reset();
+                                        } else {
+                                            // Show error message
                                             Swal.fire({
                                                 icon: 'error',
-                                                title: 'Oops...',
-                                                text: 'Something went wrong! Please try again later.'
+                                                title: 'Error',
+                                                text: data.message || 'Something went wrong! Please try again.'
                                             });
-                                            console.error('Error:', error);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        // Re-enable submit button
+                                        submitButton.disabled = false;
+                                        submitButton.innerHTML = originalButtonText;
+                                        
+                                        // Show error message
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Something went wrong! Please try again later.'
                                         });
+                                    });
                                 }
                             </script>
 
-                            <div class="form-btn-wrapp">
-                                <div class="form-btn">
-                                    <!-- Add the `form` attribute to associate the button with the form -->
-                                    <button
-                                            class="th-btn white-btn"
-                                            type="submit"
-                                            form="contactForm">
-                                        Send Message <img src="assets/img/icon/plane3.svg" alt="" />
-                                    </button>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
