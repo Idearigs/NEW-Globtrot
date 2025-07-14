@@ -25,7 +25,5 @@ jobs:
             echo "✅ Connected to server. Navigating to project directory..."
             cd /home/globbjan/public_html
             echo "📦 Pulling latest changes from GitHub..."
-            git reset --hard HEAD
-            git clean -fd
             git pull origin main
             echo "🚀 Deployment successful!"
